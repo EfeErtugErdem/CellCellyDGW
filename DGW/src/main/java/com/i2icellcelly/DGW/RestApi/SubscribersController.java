@@ -6,8 +6,11 @@ import com.i2icellcelly.DGW.Business.SubscriberService;
 import com.i2icellcelly.DGW.DataAccess.ISubscriberDal;
 import com.i2icellcelly.DGW.DataAccess.RestSubscriberDal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequestMapping("/api")
 @RestController
 public class SubscribersController {
 
@@ -19,22 +22,10 @@ public class SubscribersController {
         return "Hello World!";
     }
 
-    @GetMapping("/call")
-    public String getCall() {
-        subscriberService.generateVoiceTraffic();
-        return "A call has been requested.";
-    }
-
-    @GetMapping("/data")
-    public String getData() {
-        subscriberService.generateDataTraffic();
-        return "Data usage has been requested.";
-    }
-
-    @GetMapping("/sms")
-    public String getSms() {
-        subscriberService.generateSmsTraffic();
-        return "An SMS has been sent.";
+    @GetMapping("/generateTraffic")
+    public String generateTraffic(@RequestParam int mType) {
+        subscriberService.generateTraffic(mType);
+        return "Traffic generated";
     }
 
     @GetMapping("/getAllMSISDN")

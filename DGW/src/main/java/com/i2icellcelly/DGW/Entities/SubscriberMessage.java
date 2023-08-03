@@ -45,83 +45,83 @@ public class SubscriberMessage {
         this._endDate = null;
     }
 
-    public String get_senderMSISDN() {
+    public String getSenderMSISDN() {
         return _senderMSISDN;
     }
 
-    public void set_senderMSISDN(String _senderMSISDN) {
+    public void setSenderMSISDN(String _senderMSISDN) {
         this._senderMSISDN = _senderMSISDN;
     }
 
-    public String get_receiverMSISDN() {
+    public String getReceiverMSISDN() {
         return _receiverMSISDN;
     }
 
-    public void set_receiverMSISDN(String _receiverMSISDN) {
+    public void setReceiverMSISDN(String _receiverMSISDN) {
         this._receiverMSISDN = _receiverMSISDN;
     }
 
-    public int get_smsService() {
+    public int getSmsService() {
         return _smsService;
     }
 
-    public void set_smsService(int _smsService) {
+    public void setSmsService(int _smsService) {
         this._smsService = _smsService;
     }
 
-    public int get_smsUsageAmount() {
+    public int getSmsUsageAmount() {
         return _smsUsageAmount;
     }
 
-    public void set_smsUsageAmount(int _smsUsageAmount) {
+    public void setSmsUsageAmount(int _smsUsageAmount) {
         this._smsUsageAmount = _smsUsageAmount;
     }
 
-    public int get_voiceService() {
+    public int getVoiceService() {
         return _voiceService;
     }
 
-    public void set_voiceService(int _voiceService) {
+    public void setVoiceService(int _voiceService) {
         this._voiceService = _voiceService;
     }
 
-    public int get_voiceUsageAmount() {
+    public int getVoiceUsageAmount() {
         return _voiceUsageAmount;
     }
 
-    public void set_voiceUsageAmount(int _voiceUsageAmount) {
+    public void setVoiceUsageAmount(int _voiceUsageAmount) {
         this._voiceUsageAmount = _voiceUsageAmount;
     }
 
-    public int get_dataService() {
+    public int getDataService() {
         return _dataService;
     }
 
-    public void set_dataService(int _dataService) {
+    public void setDataService(int _dataService) {
         this._dataService = _dataService;
     }
 
-    public int get_dataUsageAmount() {
+    public int getDataUsageAmount() {
         return _dataUsageAmount;
     }
 
-    public void set_dataUsageAmount(int _dataUsageAmount) {
+    public void setDataUsageAmount(int _dataUsageAmount) {
         this._dataUsageAmount = _dataUsageAmount;
     }
 
-    public Date get_startDate() {
+    public Date getStartDate() {
         return _startDate;
     }
 
-    public void set_startDate(Date _startDate) {
+    public void setStartDate(Date _startDate) {
         this._startDate = _startDate;
     }
 
-    public Date get_endDate() {
+    public Date getEndDate() {
         return _endDate;
     }
 
-    public void set_endDate(Date _endDate) {
+    public void setEndDate(Date _endDate) {
         this._endDate = _endDate;
     }
 }

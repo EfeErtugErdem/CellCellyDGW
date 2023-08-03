@@ -1,5 +1,6 @@
 package com.i2icellcelly.DGW.Common;
 
+import java.util.Date;
 import java.util.Random;
 
 public class GlobalData {
@@ -21,15 +22,18 @@ public class GlobalData {
 
     public static String randomID(){
         Random rand = new Random();
-        int randomId = rand.nextInt(1000);
 
-        return Integer.toString(randomId);
+        return Integer.toString(rand.nextInt(1000));
     }
 
     public static int randomUsage(){
         Random random = new Random();
 
         return random.nextInt(100);
+    }
+
+    public static Date randomDate(){
+        return null;
     }
     
 }
