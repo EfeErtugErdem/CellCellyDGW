@@ -1,5 +1,6 @@
 package com.i2icellcelly.DGW.Business;
 
+import com.i2icellcelly.DGW.Common.DGWLogger;
 import com.i2icellcelly.DGW.DataAccess.ISubscriberDal;
 import com.i2icellcelly.DGW.DataAccess.RestSubscriberDal;
 import com.i2icellcelly.DGW.Entities.SubscriberMessage;
@@ -17,6 +18,7 @@ public class SubscriberService implements ISubscriberService{
 
     @Override
     public void generateTraffic(int messageType) {
+        DGWLogger.printInfoLogs("Generating new message");
         SubscriberMessage subsMessage = SubscriberMessageFactory.create(messageType);
 
         senderMSISDN = subscriberDal.getRandomSubscriber();

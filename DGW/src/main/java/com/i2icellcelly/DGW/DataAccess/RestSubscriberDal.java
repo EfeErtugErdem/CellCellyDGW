@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.i2icellcelly.DGW.Common.DGWLogger;
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 
 import com.i2icellcelly.DGW.Common.GlobalData;
@@ -15,7 +14,7 @@ public class RestSubscriberDal implements ISubscriberDal{
     @Override
     public String getRandomSubscriber() {
         try {
-            DGWLogger.printInfoLogs("Getting a random subscriber from Hazelcast.");
+            DGWLogger.printInfoLogs("Getting a random subscriber from Hazelcast");
             HttpResponse<String> randomMSISND = Unirest.get(GlobalData.HAZEL_ADDRESS + "getRandomMsisdn")
                     .asString();
 

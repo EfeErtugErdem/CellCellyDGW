@@ -32,9 +32,10 @@ public class SubscribersController {
     public String generateTraffic(@RequestParam int mType) {
         if (mType < 1 || mType > 7){
             DGWLogger.printWarningLogs("Invalid query parameter supplied to /generateTraffic: " + mType);
-            return "Invalid query parameter. Please supply a value between 1 and 7, inclusive.";
+            return "Invalid query parameter. Please supply a value between 1 and 7, inclusive";
         }
+        DGWLogger.printInfoLogs("Generating new traffic with message type: " + mType);
         subscriberService.generateTraffic(mType);
-        return "Traffic generated";
+        return "Traffic generated with message type: " + mType;
     }
 }
