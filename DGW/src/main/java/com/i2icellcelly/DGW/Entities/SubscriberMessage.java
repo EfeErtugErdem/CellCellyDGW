@@ -32,6 +32,19 @@ public class SubscriberMessage {
         this._endDate = _endDate;
     }
 
+    public SubscriberMessage(){
+        this._senderMSISDN = null;
+        this._receiverMSISDN = null;
+        this._smsService = 0;
+        this._smsUsageAmount = 0;
+        this._voiceService = 0;
+        this._voiceUsageAmount = 0;
+        this._dataService = 0;
+        this._dataUsageAmount = 0;
+        this._startDate = null;
+        this._endDate = null;
+    }
+
     public String get_senderMSISDN() {
         return _senderMSISDN;
     }

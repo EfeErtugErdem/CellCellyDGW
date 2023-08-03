@@ -27,7 +27,9 @@ public class GlobalData {
     }
 
     public static int randomUsage(){
-        return 0;
+        Random random = new Random();
+
+        return random.nextInt(100);
     }
     
 }
