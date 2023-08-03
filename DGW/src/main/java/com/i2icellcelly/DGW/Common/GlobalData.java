@@ -25,5 +25,9 @@ public class GlobalData {
 
         return Integer.toString(randomId);
     }
+
+    public static int randomUsage(){
+        return 0;
+    }
     
 }
