@@ -4,9 +4,11 @@ import com.i2icellcelly.DGW.DataAccess.ISubscriberDal;
 import com.i2icellcelly.DGW.DataAccess.RestSubscriberDal;
 import com.i2icellcelly.DGW.Entities.SubscriberMessage;
 import com.i2icellcelly.DGW.Entities.SubscriberMessageFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+@Service
 public class SubscriberService implements ISubscriberService{
 
     ISubscriberDal subscriberDal = new RestSubscriberDal();

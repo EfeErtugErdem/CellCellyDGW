@@ -7,7 +7,9 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 
 import com.i2icellcelly.DGW.Common.GlobalData;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class RestSubscriberDal implements ISubscriberDal{
     @Override
     public String getRandomSubscriber() {

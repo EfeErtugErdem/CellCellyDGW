@@ -1,6 +1,5 @@
 package com.i2icellcelly.DGW.DataAccess;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.gson.JsonArray;
 
 public interface ISubscriberDal {
