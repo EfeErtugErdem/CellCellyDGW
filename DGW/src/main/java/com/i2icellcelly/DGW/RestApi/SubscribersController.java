@@ -1,8 +1,7 @@
 package com.i2icellcelly.DGW.RestApi;
 
-import com.google.gson.*;
-
 import com.i2icellcelly.DGW.Business.ISubscriberService;
+import com.i2icellcelly.DGW.Common.DGWLogger;
 import com.i2icellcelly.DGW.DataAccess.ISubscriberDal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,26 +30,11 @@ public class SubscribersController {
 
     @GetMapping("/generateTraffic")
     public String generateTraffic(@RequestParam int mType) {
+        if (mType < 1 || mType > 7){
+            DGWLogger.printWarningLogs("Invalid query parameter supplied to /generateTraffic: " + mType);
+            return "Invalid query parameter. Please supply a value between 0 and 6, inclusive.";
+        }
         subscriberService.generateTraffic(mType);
         return "Traffic generated";
     }
-
-    @GetMapping("/getAllMSISDN")
-    public String getAllMSISDN() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonArray allMsisdnJsonArray = subscriberDal.getAllSubscribers();
-
-        return gson.toJson(allMsisdnJsonArray);
-    }
-
-    @GetMapping("/getRandomMSISDN")
-    public String getRandomMSISDN() {
-        return subscriberDal.getRandomSubscriber();
-    }
-
-    @GetMapping("/addSubscriber")
-    public int addSubscriber() {
-        return subscriberDal.addSubscriber();
-    }
-
 }

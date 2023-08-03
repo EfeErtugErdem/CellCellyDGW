@@ -6,6 +6,5 @@ public interface ISubscriberDal {
 
     public String getRandomSubscriber();
     public JsonArray getAllSubscribers();
-    public int addSubscriber();
 
 }
