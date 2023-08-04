@@ -18,20 +18,21 @@ import java.util.Date;
 @Service
 public class SubscriberService implements ISubscriberService{
 
+    Config config = ConfigFactory.parseFile(new File("actor.conf"));
+    final ActorSystem system = ActorSystem.create("MySystem", config);
+    final ActorRef publisher = system.actorOf(AkkaTrafficSenderActor.props(), "publisher");
+
     ISubscriberDal subscriberDal = new RestSubscriberDal();
     String senderMSISDN;
     String receiverMSISDN;
 
     @Override
     public void generateTraffic(int messageType) {
+        DGWLogger.printInfoLogs("Generating new traffic with Akka, message type: " + messageType);
         SubscriberMessage subsMessage = generateMessage(messageType);
 
-        Config config = ConfigFactory.parseFile(new File("actor.conf"));
-        final ActorSystem system = ActorSystem.create("MySystem", config);
-
-        final ActorRef publisher = system.actorOf(AkkaTrafficSenderActor.props(), "publisher");
-
         publisher.tell(subsMessage.toString(), publisher);
+        DGWLogger.printInfoLogs("Sent message to OCS.");
     }
 
     public SubscriberMessage generateMessage (int messageType){
@@ -53,6 +54,7 @@ public class SubscriberService implements ISubscriberService{
         subsMessage.setStartDate(new Date());
         subsMessage.setEndDate(new Date());
 
+        DGWLogger.printInfoLogs("Message with type " + messageType + " created in business layer");
         return subsMessage;
     }
 }
