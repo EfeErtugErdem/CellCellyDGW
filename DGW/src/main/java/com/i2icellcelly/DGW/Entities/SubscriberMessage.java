@@ -124,4 +124,20 @@ public class SubscriberMessage {
     public void setEndDate(Date _endDate) {
         this._endDate = _endDate;
     }
+
+    @Override
+    public String toString() {
+        return "SubscriberMessage{\n" +
+                "SenderMSISDN= '" + _senderMSISDN + '\'' + ",\n" +
+                "ReceiverMSISDN= '" + _receiverMSISDN + '\'' + ",\n" +
+                "SmsService= " + _smsService + ",\n" +
+                "SmsUsageAmount= " + _smsUsageAmount + ",\n" +
+                "VoiceService= " + _voiceService + ",\n" +
+                "VoiceUsageAmount= " + _voiceUsageAmount + ",\n" +
+                "DataService= " + _dataService + ",\n" +
+                "DataUsageAmount= " + _dataUsageAmount + ",\n" +
+                "StartDate= " + _startDate + ",\n" +
+                "EndDate= " + _endDate +
+                '}';
+    }
 }

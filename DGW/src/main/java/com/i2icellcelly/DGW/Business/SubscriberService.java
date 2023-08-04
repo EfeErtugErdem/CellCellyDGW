@@ -18,7 +18,7 @@ public class SubscriberService implements ISubscriberService{
 
     @Override
     public void generateTraffic(int messageType) {
-        DGWLogger.printInfoLogs("Generating new message");
+        DGWLogger.printInfoLogs("Generating new message in business layer, message type: " + messageType);
         SubscriberMessage subsMessage = SubscriberMessageFactory.create(messageType);
 
         senderMSISDN = subscriberDal.getRandomSubscriber();
@@ -35,5 +35,7 @@ public class SubscriberService implements ISubscriberService{
         //generate random dates here
         subsMessage.setStartDate(new Date());
         subsMessage.setEndDate(new Date());
+
+        //DGWLogger.printInfoLogs(subsMessage.toString());
     }
 }
