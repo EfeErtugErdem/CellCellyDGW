@@ -102,15 +102,15 @@ public class SubscriberMessage {
 
     @Override
     public String toString() {
-        return "SubscriberMessage{" +
-                "Type='" + _type + ",'" + '\n' +
-                "Date=" + _date + ",\n" +
-                "Location=" + _location + ",\n" +
-                "UsageAmount=" + _usageAmount + ",\n" +
-                "SenderMSISDN='" + _senderMSISDN + ",'" + '\n' +
-                "ReceiverMSISDN='" + _receiverMSISDN + ",'" + '\n' +
-                "ratingNumber=" + _ratingNumber + ",\n" +
-                "PartitionKey=" + _partitionKey + '\n' +
+        return '{' +
+                "\"Type\" : \"" + _type + "\", " +
+                "\"Date\" : \"" + _date + "\", " +
+                "\"Location\" : " + _location + ", " +
+                "\"UsageAmount\" : " + _usageAmount + ", " +
+                "\"SenderMSISDN\" : \"" + _senderMSISDN + "\", " +
+                "\"ReceiverMSISDN\" : \"" + _receiverMSISDN + "\", " +
+                "\"ratingNumber\" : " + _ratingNumber + ", " +
+                "\"PartitionKey\" : " + _partitionKey +
                 '}';
     }
 }
