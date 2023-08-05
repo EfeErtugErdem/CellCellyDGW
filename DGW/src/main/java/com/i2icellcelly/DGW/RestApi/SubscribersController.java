@@ -4,11 +4,10 @@ import com.i2icellcelly.DGW.Business.ISubscriberService;
 import com.i2icellcelly.DGW.Common.DGWLogger;
 import com.i2icellcelly.DGW.DataAccess.ISubscriberDal;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api")
 @RestController
@@ -16,6 +15,7 @@ public class SubscribersController {
 
     ISubscriberDal subscriberDal;
     ISubscriberService subscriberService;
+    JSONParser parser = new JSONParser();
 
     @Autowired
     public SubscribersController(ISubscriberDal sDal, ISubscriberService sSer){
@@ -28,14 +28,16 @@ public class SubscribersController {
         return "Hello World!";
     }
 
-    @GetMapping("/generateTraffic")
-    public String generateTraffic(@RequestParam int mType) {
-        if (mType < 1 || mType > 7){
-            DGWLogger.printWarningLogs("Invalid query parameter supplied to /generateTraffic: " + mType);
-            return "Invalid query parameter. Please supply a value between 1 and 7, inclusive";
+    @PostMapping("/generateTraffic")
+    public String generateTraffic(@RequestBody String message) {
+        DGWLogger.printInfoLogs("Generating new traffic");
+        DGWLogger.printInfoLogs(message);
+        try{
+            JSONObject message1 = (JSONObject) parser.parse(message);
+            subscriberService.generateTraffic(message1);
+        } catch (Exception e){
+            e.printStackTrace();
         }
-        DGWLogger.printInfoLogs("Generating new traffic with message type: " + mType);
-        subscriberService.generateTraffic(mType);
-        return "Traffic generated with message type: " + mType;
+        return "Traffic generated";
     }
 }

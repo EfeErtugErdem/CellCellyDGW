@@ -1,49 +1,46 @@
 package com.i2icellcelly.DGW.DataAccess;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
-import com.i2icellcelly.DGW.Common.DGWLogger;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-
-import com.i2icellcelly.DGW.Common.GlobalData;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class RestSubscriberDal implements ISubscriberDal{
     @Override
-    public String getRandomSubscriber() {
-        try {
-            DGWLogger.printInfoLogs("Getting a random subscriber from Hazelcast");
-            HttpResponse<String> randomMSISND = Unirest.get(GlobalData.HAZEL_ADDRESS + "getRandomMsisdn")
-                    .asString();
-
-            JsonParser jsonParser = new JsonParser();
-            return jsonParser.parse(randomMSISND.getBody()).toString();
-        } catch (Exception e){
-            DGWLogger.printWarningLogs("Exception getting a random subscriber from Hazelcast: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return null;
+    public int getPartitionIDFromMSISDN() {
+        return 0;
     }
 
-    @Override
-    public JsonArray getAllSubscribers() {
-        try {
-            DGWLogger.printInfoLogs("Getting all subscriber from Hazelcast.");
-            HttpResponse<String> allMSISND = Unirest.get(GlobalData.HAZEL_ADDRESS + "getAllMsisdn")
-                    .asString();
+//                                  ----------------------------------
+//                                  |||  USED FOR TESTING PURPOSES |||
+//                                  ----------------------------------
+//    public String getRandomSubscriber() {
+//        try {
+//            DGWLogger.printInfoLogs("Getting a random subscriber from Hazelcast");
+//            HttpResponse<String> randomMSISND = Unirest.get(GlobalData.HAZEL_ADDRESS + "getRandomMsisdn")
+//                    .asString();
+//
+//            JsonParser jsonParser = new JsonParser();
+//            return jsonParser.parse(randomMSISND.getBody()).toString();
+//        } catch (Exception e){
+//            DGWLogger.printWarningLogs("Exception getting a random subscriber from Hazelcast: " + e.getMessage());
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
-            JsonParser jsonParser = new JsonParser();
-            return  (JsonArray) jsonParser.parse(allMSISND.getBody());
-        } catch (Exception e){
-            DGWLogger.printWarningLogs("Exception getting all subscribers from Hazelcast: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    // Used for testing purposes
+//    public JsonArray getAllSubscribers() {
+//        try {
+//            DGWLogger.printInfoLogs("Getting all subscriber from Hazelcast.");
+//            HttpResponse<String> allMSISND = Unirest.get(GlobalData.HAZEL_ADDRESS + "getAllMsisdn")
+//                    .asString();
+//
+//            JsonParser jsonParser = new JsonParser();
+//            return  (JsonArray) jsonParser.parse(allMSISND.getBody());
+//        } catch (Exception e){
+//            DGWLogger.printWarningLogs("Exception getting all subscribers from Hazelcast: " + e.getMessage());
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 //    @Override
 //    public int addSubscriber() {
 //        try {

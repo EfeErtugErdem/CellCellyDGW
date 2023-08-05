@@ -10,10 +10,10 @@ import com.i2icellcelly.DGW.Entities.SubscriberMessage;
 import com.i2icellcelly.DGW.Entities.SubscriberMessageFactory;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.Date;
 
 @Service
 public class SubscriberService implements ISubscriberService{
@@ -23,38 +23,25 @@ public class SubscriberService implements ISubscriberService{
     final ActorRef publisher = system.actorOf(AkkaTrafficSenderActor.props(), "publisher");
 
     ISubscriberDal subscriberDal = new RestSubscriberDal();
-    String senderMSISDN;
-    String receiverMSISDN;
+    Integer partitionKey;
 
     @Override
-    public void generateTraffic(int messageType) {
-        DGWLogger.printInfoLogs("Generating new traffic with Akka, message type: " + messageType);
-        SubscriberMessage subsMessage = generateMessage(messageType);
+    public void generateTraffic(JSONObject message) {
+        DGWLogger.printInfoLogs("Generating new traffic with Akka");
+        SubscriberMessage subsMessage = generateMessage(message);
 
         publisher.tell(subsMessage.toString(), publisher);
         DGWLogger.printInfoLogs("Sent message to OCS.");
     }
 
-    public SubscriberMessage generateMessage (int messageType){
-        DGWLogger.printInfoLogs("Generating new message in business layer, message type: " + messageType);
-        SubscriberMessage subsMessage = SubscriberMessageFactory.create(messageType);
+    public SubscriberMessage generateMessage (JSONObject message){
+        DGWLogger.printInfoLogs("Generating new message in business layer");
+        SubscriberMessage subsMessage = SubscriberMessageFactory.create(message);
 
-        senderMSISDN = subscriberDal.getRandomSubscriber();
-        receiverMSISDN = subscriberDal.getRandomSubscriber();
+        //partitionKey = subscriberDal.getPartitionIDFromMSISDN();
+        //subsMessage.set_partitionKey(partitionKey);
 
-        //In case same MSISDN returns
-        while (senderMSISDN.equals(receiverMSISDN)){
-            receiverMSISDN = subscriberDal.getRandomSubscriber();
-        }
-
-        subsMessage.setSenderMSISDN(senderMSISDN);
-        subsMessage.setReceiverMSISDN(receiverMSISDN);
-
-        //generate random dates here
-        subsMessage.setStartDate(new Date());
-        subsMessage.setEndDate(new Date());
-
-        DGWLogger.printInfoLogs("Message with type " + messageType + " created in business layer");
+        DGWLogger.printInfoLogs("Message created in business layer");
         return subsMessage;
     }
 }
