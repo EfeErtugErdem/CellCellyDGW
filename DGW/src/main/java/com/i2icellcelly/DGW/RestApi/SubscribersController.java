@@ -23,11 +23,6 @@ public class SubscribersController {
         subscriberService = sSer;
     }
 
-    @GetMapping("/")
-    public String get() {
-        return "Hello World!";
-    }
-
     @PostMapping("/generateTraffic")
     public String generateTraffic(@RequestBody String message) {
         DGWLogger.printInfoLogs("Generating new traffic");
