@@ -26,8 +26,6 @@ public class RestSubscriberDal implements ISubscriberDal{
             }
         }catch (Exception e){
             return e.toString();
-        }finally {
-            hazelcast.shutdown();
         }
     }
 }
