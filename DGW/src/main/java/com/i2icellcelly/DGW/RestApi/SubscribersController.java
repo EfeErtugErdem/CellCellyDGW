@@ -1,6 +1,6 @@
 package com.i2icellcelly.DGW.RestApi;
 
-import com.i2icellcelly.DGW.Business.ISubscriberService;
+import com.i2icellcelly.DGW.Business.ITrafficService;
 import com.i2icellcelly.DGW.Common.DGWLogger;
 import com.i2icellcelly.DGW.DataAccess.ISubscriberDal;
 
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 public class SubscribersController {
 
     ISubscriberDal subscriberDal;
-    ISubscriberService subscriberService;
+    ITrafficService subscriberService;
     JSONParser parser = new JSONParser();
 
     @Autowired
-    public SubscribersController(ISubscriberDal sDal, ISubscriberService sSer){
+    public SubscribersController(ISubscriberDal sDal, ITrafficService sSer){
         subscriberDal = sDal;
         subscriberService = sSer;
     }
