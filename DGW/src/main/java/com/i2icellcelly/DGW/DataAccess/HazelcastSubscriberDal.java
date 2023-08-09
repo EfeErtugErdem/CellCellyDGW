@@ -4,12 +4,14 @@ import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
+
 import com.i2icellcelly.DGW.Common.GlobalData;
 import com.i2icellcelly.DGW.Common.HazelConfiguration;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class RestSubscriberDal implements ISubscriberDal{
+public class HazelcastSubscriberDal implements ISubscriberDal{
 
     /*
      * The configuration and the client for the Hazelcast server.

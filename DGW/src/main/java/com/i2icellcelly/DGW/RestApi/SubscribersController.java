@@ -2,36 +2,47 @@ package com.i2icellcelly.DGW.RestApi;
 
 import com.i2icellcelly.DGW.Business.ITrafficService;
 import com.i2icellcelly.DGW.Common.DGWLogger;
-import com.i2icellcelly.DGW.DataAccess.ISubscriberDal;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * The REST API for the simulator to generate the traffic.
+ */
 @RequestMapping("/api")
 @RestController
 public class SubscribersController {
 
-    ISubscriberDal subscriberDal;
     ITrafficService subscriberService;
     JSONParser parser = new JSONParser();
 
     @Autowired
-    public SubscribersController(ISubscriberDal sDal, ITrafficService sSer){
-        subscriberDal = sDal;
+    public SubscribersController(ITrafficService sSer){
         subscriberService = sSer;
     }
 
+    /**
+     * The endpoint for the API to receive simulated traffic.
+     * @param diagramMessage    Since the endpoint is open to POST requests, diagramMessage is the String
+     *                          that is sent in the POST request body. The diagramMessage must be sent in a
+     *                          valid JSON format, or else the function terminates.
+     * @return                  Returns a response String that specifies the success of the traffic
+     *                          generation process.
+     */
     @PostMapping("/generateTraffic")
-    public String generateTraffic(@RequestBody String message) {
+    public String generateTraffic(@RequestBody String diagramMessage) {
         DGWLogger.printInfoLogs("Generating new traffic");
-        DGWLogger.printInfoLogs(message);
+        DGWLogger.printInfoLogs(diagramMessage);
         try{
-            JSONObject message1 = (JSONObject) parser.parse(message);
-            subscriberService.generateTraffic(message1);
+            JSONObject jsonDiagramMessage = (JSONObject) parser.parse(diagramMessage);
+            subscriberService.generateTraffic(jsonDiagramMessage);
         } catch (Exception e){
             e.printStackTrace();
+            DGWLogger.printWarningLogs("Error parsing JSON, please provide a valid String.");
+            return "Error parsing JSON, please provide a valid String.";
         }
         return "Traffic generated";
     }

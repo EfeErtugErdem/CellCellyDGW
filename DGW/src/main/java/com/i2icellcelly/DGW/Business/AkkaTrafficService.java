@@ -5,10 +5,11 @@ import akka.actor.ActorSystem;
 
 import com.i2icellcelly.DGW.Common.DGWLogger;
 import com.i2icellcelly.DGW.DataAccess.ISubscriberDal;
-import com.i2icellcelly.DGW.DataAccess.RestSubscriberDal;
+import com.i2icellcelly.DGW.DataAccess.HazelcastSubscriberDal;
 import com.i2icellcelly.DGW.Entities.AkkaTrafficSenderActor;
-import com.i2icellcelly.DGW.Entities.SubscriberMessage;
-import com.i2icellcelly.DGW.Entities.SubscriberMessageFactory;
+import com.i2icellcelly.DGW.Entities.DGWMessage;
+import com.i2icellcelly.DGW.Entities.DGWMessageFactory;
+
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
@@ -39,15 +40,15 @@ public class AkkaTrafficService implements ITrafficService {
     /**
      * The subscriberDal has the responsibility of getting the Partition Key from Hazelcast.
      */
-    ISubscriberDal subscriberDal = new RestSubscriberDal();
+    ISubscriberDal subscriberDal = new HazelcastSubscriberDal();
     Integer partitionKey;
 
     @Override
     public void generateTraffic(JSONObject message) {
         DGWLogger.printInfoLogs("Generating new traffic with Akka");
-        SubscriberMessage subsMessage = generateMessage(message);
+        DGWMessage subsMessage = generateMessage(message);
 
-        publisherActor.tell(subsMessage.toString(), publisherActor);
+        publisherActor.tell(subsMessage.toString(), publisherActor);         //The actor tells the remote OCS actor its message, and gives itself as the sender reference so it can receive a response.
         DGWLogger.printInfoLogs("Sent message to OCS.");
     }
 
@@ -63,15 +64,14 @@ public class AkkaTrafficService implements ITrafficService {
      *      Returns the message with the Partition Key included. Logs the actions that are performed
      *      during its execution.
      */
-    private SubscriberMessage generateMessage (JSONObject message){
+    private DGWMessage generateMessage (JSONObject message){
         DGWLogger.printInfoLogs("Generating new message in business layer");
-        SubscriberMessage subsMessage = SubscriberMessageFactory.create(message);
+        DGWMessage subsMessage = DGWMessageFactory.create(message);
 
         try{
-            partitionKey = Integer.parseInt(subscriberDal.getPartitionIDFromMSISDN(subsMessage.getSenderMSISDN()));
+            //partitionKey = Integer.parseInt(subscriberDal.getPartitionIDFromMSISDN(subsMessage.getSenderMSISDN()));
+            partitionKey = 0;
             subsMessage.set_partitionKey(partitionKey);
-
-            subsMessage.set_partitionKey(0);
 
             DGWLogger.printInfoLogs("Message created in business layer");
         }catch (NumberFormatException e){
