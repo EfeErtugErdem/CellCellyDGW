@@ -11,18 +11,21 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RestSubscriberDal implements ISubscriberDal{
 
-    private static final ClientConfig config = HazelConfiguration.getConfig();
-    private static final HazelcastInstance hazelcast = HazelcastClient.newHazelcastClient(config);
+    /*
+     * The configuration and the client for the Hazelcast server.
+     */
+    private static final ClientConfig HZ_CLIENT_CONFIG = HazelConfiguration.getConfig();
+    private static final HazelcastInstance HAZELCAST_CLIENT = HazelcastClient.newHazelcastClient(HZ_CLIENT_CONFIG);
 
     @Override
-    public String getPartitionIDFromMSISDN(String key) {
+    public String getPartitionIDFromMSISDN(String key) throws NumberFormatException{
         try{
-            IMap<Object, Object> map = hazelcast.getMap(GlobalData.MAP_NAME);
+            IMap<Object, Object> map = HAZELCAST_CLIENT.getMap(GlobalData.MAP_NAME);
 
             if (map.containsKey(key)) {
                 return map.get(key).toString();
             } else {
-                return "Key not found";
+                throw new NumberFormatException("Key not found.");
             }
         }catch (Exception e){
             return e.toString();

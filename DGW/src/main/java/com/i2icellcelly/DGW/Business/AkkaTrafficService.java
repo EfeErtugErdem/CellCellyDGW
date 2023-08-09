@@ -42,18 +42,6 @@ public class AkkaTrafficService implements ITrafficService {
     ISubscriberDal subscriberDal = new RestSubscriberDal();
     Integer partitionKey;
 
-    /**
-     * Sends a SubscriberMessage to the OCS.
-     * Requires a valid JSON object to be sent to the generateMessage method.
-     * The function does not modify the JSON object during its operations.
-     * The message is sent to the OCS via the Akka actor after its creation.
-     *
-     * @param message  A valid JSON object that includes the necessary information
-     *                 for the OCS calculations such as the MSISDN and the usage amount.
-     * @see ITrafficService
-     * @see AkkaTrafficSenderActor
-     * @see SubscriberMessage
-     */
     @Override
     public void generateTraffic(JSONObject message) {
         DGWLogger.printInfoLogs("Generating new traffic with Akka");
@@ -79,10 +67,17 @@ public class AkkaTrafficService implements ITrafficService {
         DGWLogger.printInfoLogs("Generating new message in business layer");
         SubscriberMessage subsMessage = SubscriberMessageFactory.create(message);
 
-        partitionKey = Integer.parseInt(subscriberDal.getPartitionIDFromMSISDN(subsMessage.getSenderMSISDN()));
-        subsMessage.set_partitionKey(partitionKey);
+        try{
+            partitionKey = Integer.parseInt(subscriberDal.getPartitionIDFromMSISDN(subsMessage.getSenderMSISDN()));
+            subsMessage.set_partitionKey(partitionKey);
 
-        DGWLogger.printInfoLogs("Message created in business layer");
+            subsMessage.set_partitionKey(0);
+
+            DGWLogger.printInfoLogs("Message created in business layer");
+        }catch (NumberFormatException e){
+            DGWLogger.printWarningLogs(e.getMessage());
+            e.printStackTrace();
+        }
         return subsMessage;
     }
 }

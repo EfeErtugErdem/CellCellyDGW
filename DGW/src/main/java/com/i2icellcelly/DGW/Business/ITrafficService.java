@@ -1,5 +1,7 @@
 package com.i2icellcelly.DGW.Business;
 
+import com.i2icellcelly.DGW.Entities.AkkaTrafficSenderActor;
+import com.i2icellcelly.DGW.Entities.SubscriberMessage;
 import org.json.simple.JSONObject;
 
 /**
@@ -8,5 +10,17 @@ import org.json.simple.JSONObject;
  * are added to the final message that will be sent to the OCS.
  */
 public interface ITrafficService {
+    /**
+     * Sends a SubscriberMessage to the OCS.
+     * Requires a valid JSON object to be sent to the generateMessage method.
+     * The function does not modify the JSON object during its operations.
+     * The message is sent to the OCS via the Akka actor after its creation.
+     *
+     * @param message  A valid JSON object that includes the necessary information
+     *                 for the OCS calculations such as the MSISDN and the usage amount.
+     * @see ITrafficService
+     * @see AkkaTrafficSenderActor
+     * @see SubscriberMessage
+     */
     void generateTraffic(JSONObject message);
 }

@@ -1,6 +1,6 @@
 package com.i2icellcelly.DGW.Common;
 
-/*
+/**
  * Includes the data that is used globally in the DGW.
  */
 public class GlobalData {
