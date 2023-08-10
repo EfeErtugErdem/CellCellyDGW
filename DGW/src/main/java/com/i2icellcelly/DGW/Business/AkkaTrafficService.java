@@ -48,7 +48,7 @@ public class AkkaTrafficService implements ITrafficService {
         DGWLogger.printInfoLogs("Generating new traffic with Akka");
         DGWMessage subsMessage = generateMessage(message);
 
-        publisherActor.tell(subsMessage.toString(), publisherActor);         //The actor tells the remote OCS actor its message, and gives itself as the sender reference so it can receive a response.
+        publisherActor.tell(subsMessage.toString(), publisherActor);         //The actor tells the remote OCS actor its message, and gives itself as the sender reference, so it can receive a response.
         DGWLogger.printInfoLogs("Sent message to OCS.");
     }
 

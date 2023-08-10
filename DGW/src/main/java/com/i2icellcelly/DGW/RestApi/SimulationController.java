@@ -11,16 +11,21 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * The REST API for the simulator to generate the traffic.
+ * The endpoint for the API is /api/generateTraffic.
  */
 @RequestMapping("/api")
 @RestController
-public class SubscribersController {
+public class SimulationController {
 
     ITrafficService subscriberService;
     JSONParser parser = new JSONParser();
 
+    /**
+     * Constructor for SimulationControl.
+     * @param sSer   The Traffic Service used for sending the messages to the OCS.
+     */
     @Autowired
-    public SubscribersController(ITrafficService sSer){
+    public SimulationController(ITrafficService sSer){
         subscriberService = sSer;
     }
 
