@@ -69,8 +69,8 @@ public class AkkaTrafficService implements ITrafficService {
         DGWMessage subsMessage = DGWMessageFactory.create(message);
 
         try{
-            //partitionKey = Integer.parseInt(subscriberDal.getPartitionIDFromMSISDN(subsMessage.getSenderMSISDN()));
-            partitionKey = 0;
+            partitionKey = Integer.parseInt(subscriberDal.getPartitionIDFromMSISDN(subsMessage.getSenderMSISDN()));
+            //partitionKey = 0;
             subsMessage.set_partitionKey(partitionKey);
 
             DGWLogger.printInfoLogs("Message created in business layer");

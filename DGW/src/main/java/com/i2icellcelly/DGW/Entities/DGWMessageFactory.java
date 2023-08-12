@@ -42,7 +42,10 @@ public class DGWMessageFactory {
                     subsMessage.setUsageAmount((Long) attributes.get("dataUsage"));                    //Data usage amount
                     subsMessage.setRatingNumber((Long) attributes.get("rGroup"));                      //The rating group, plays a role in calculating the cost of the communication. 0 or 10.
                 }
-                case "sms" -> subsMessage.setReceiverMSISDN((String) attributes.get("bMsisdn"));       //MSISDN of the receiving party.
+                case "sms" -> {
+                    subsMessage.setReceiverMSISDN((String) attributes.get("bMsisdn"));                 //MSISDN of the sender.
+                    subsMessage.setUsageAmount(Long.parseLong("1"));                                //SMS usage, always 1.
+                }
                 case "voice" -> {
                     subsMessage.setUsageAmount((Long) attributes.get("duration"));                     //The duration of the call in minutes.
                     subsMessage.setReceiverMSISDN((String) attributes.get("bMsisdn"));                 //MSISDN of the receiving party.
